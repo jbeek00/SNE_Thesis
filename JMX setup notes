@@ -1,0 +1,14 @@
+jmx notes
+To monitor with JMX, get the jmx jar file installed:
+java -jar jmxterm-1.0.2-uber.jar
+open localhost:9999 # Or whatever port you wish, default is 9999
+
+In the bin directory, kafka-server-start.sh should read this for line 32 (EXTRA_ARGS)
+EXTRA_ARGS=${EXTRA_ARGS-'-name kafkaServer -loggc' -Dcom.sun.management.config.file=$KAFKA_JMX_CONFIG_FILE}
+
+be sure to export the jmx.properties file to the kafka config directory.
+This command can do so (assuming your Kafka source is located in the home directory): 
+export KAFKA_JMX_CONFIG_FILE=~/kafka_2.13-3.7.0/config/jmx.properties
+
+If Kafka complains when (re)starting the Kafka service with server.properties and the config file 'can't be found', it's talking about the jmx.properties config. 
+Re-run the export command before starting.
